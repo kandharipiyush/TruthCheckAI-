@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>TruthCheck AI+</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo">TruthCheck<span>AI+</span></div>
+  <div class="nav-links">
+    <a href="#">Tool</a>
+    <a href="#">Features</a>
+    <a href="#">About</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <h1>Think before you trust.</h1>
+  <p>
+    Detect scam messages, fake links, and manipulated images using
+    <b>Google Gemini AI</b>.
+  </p>
+</section>
+
+<!-- MAIN CARD -->
+<section class="card">
+  <form method="POST" enctype="multipart/form-data">
+    
+    <label>Message or Text</label>
+    <textarea name="message" placeholder="Paste message here..."></textarea>
+
+    <label>Link (optional)</label>
+    <input type="text" name="video_link" placeholder="Paste link here">
+
+    <label>Upload Image</label>
+    <input type="file" name="file">
+
+    <button type="submit">Analyze Content</button>
+  </form>
+
+  {% if result %}
+  <div class="result
+    {% if result.state == 'SAFE' %}safe
+    {% elif result.state == 'UNVERIFIED' %}unverified
+    {% else %}danger{% endif %}">
+    
+    <h2>
+      {% if result.state == 'SAFE' %}✅ SAFE
+      {% elif result.state == 'UNVERIFIED' %}⚠️ UNVERIFIED
+      {% else %}🚨 DANGEROUS{% endif %}
+    </h2>
+
+    <p><b>Category:</b> {{ result.category }}</p>
+    <p><b>Confidence:</b> {{ result.confidence }}%</p>
+    <p class="explain">{{ result.explanation }}</p>
+  </div>
+  {% endif %}
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Powered by Google Gemini • Built for Safety • Hackathon Ready
+</footer>
+
+</body>
+</html>
